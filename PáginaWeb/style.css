@@ -1,0 +1,222 @@
+/* Importamos las fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* Variables de nuestra paleta Parfois "Golden Hour Chic" */
+:root {
+    --bg-crema: #F9F7F1;
+    --texto-oscuro: #1A2B4C; /* Azul noche profundo */
+    --dorado-acento: #D4AF37;
+    --dorado-hover: #b8972e;
+    --blanco: #ffffff;
+    --transicion-suave: all 0.3s ease;
+}
+
+/* Reset básico y Mobile-First */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-crema);
+    color: var(--texto-oscuro);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+/* --- NAVEGACIÓN SEMÁNTICA --- */
+header {
+    padding: 20px;
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--texto-oscuro);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+}
+nav a:hover {
+    background-color: var(--blanco);
+}
+
+/* --- PÁGINA PRINCIPAL (INDEX) --- */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    min-height: 80vh;
+}
+
+.hero img {
+    width: 60%;
+    max-width: 200px; /* Para que no sea inmensa en PC */
+    border-radius: 15px;
+    margin-bottom: 30px;
+    filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* --- BOTONES E INTERACTIVIDAD --- */
+.btn {
+    display: inline-block;
+    background-color: var(--dorado-acento);
+    color: var(--blanco);
+    padding: 15px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    /* Requisito: Transiciones suaves */
+    transition: var(--transicion-suave);
+}
+
+/* Requisito: Estados :hover */
+.btn:hover {
+    background-color: var(--dorado-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* --- PÁGINA DE PRODUCTO --- */
+.producto-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.producto-img img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.ficha-tecnica {
+    background-color: var(--blanco);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Estrategia de precios (Tema 14) */
+.precio-desglose {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: var(--bg-crema);
+    border-left: 4px solid var(--dorado-acento);
+}
+
+.precio-final {
+    font-size: 2rem;
+    color: var(--dorado-acento);
+    font-weight: 600;
+}
+
+.precio-desglose ul {
+    list-style-type: none;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* --- RESPONSIVE DESIGN (Media Queries) --- */
+@media (min-width: 768px) {
+    /* Al pasar a tablet/PC, aplicamos CSS Grid o Flexbox horizontal */
+    .producto-container {
+        flex-direction: row;
+        max-width: 1000px;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    .producto-img, .producto-info {
+        flex: 1; /* Mitad y mitad */
+    }
+}
+
+/* --- FOOTER --- */
+.site-footer {
+    background-color: var(--texto-oscuro); /* Azul noche profundo */
+    color: var(--bg-crema);                /* Letras color crema */
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 40px;
+}
+
+.footer-legales {
+    display: flex;
+    flex-direction: column; /* Apilados en vertical para móvil */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Enlaces legales */
+.footer-legales a {
+    color: var(--bg-crema);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transicion-suave); /* Interactividad obligatoria */
+}
+
+.footer-legales a:hover {
+    color: var(--dorado-acento); /* Se vuelven dorados al pasar el ratón */
+}
+
+/* Redes sociales */
+.footer-social {
+    margin-bottom: 20px;
+}
+
+.footer-social a {
+    color: var(--dorado-acento);
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 600;
+    transition: var(--transicion-suave);
+}
+
+.footer-social a:hover {
+    color: var(--blanco); /* Brillan en blanco al pasar el ratón */
+}
+
+.footer-social .separador {
+    color: var(--bg-crema);
+    opacity: 0.5;
+}
+
+.footer-copy {
+    font-size: 0.8rem;
+    opacity: 0.7; /* Ligeramente transparente para no quitar protagonismo */
+}
+
+/* RESPONSIVE DESIGN PARA EL FOOTER */
+@media (min-width: 768px) {
+    .footer-legales {
+        flex-direction: row; /* En PC/Tablet se ponen en línea horizontal */
+        justify-content: center;
+        gap: 30px;
+    }
+}
