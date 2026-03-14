@@ -148,7 +148,10 @@ nav.activo {
 }
 
 .tarjeta-producto img {
-    width: 100%; max-width: 200px; margin-bottom: 15px;
+    width: 100%;
+    height: 220px; /* Forzamos a que todas las cajas de imagen midan exactamente lo mismo de alto */
+    object-fit: contain; /* Hace que la imagen encaje dentro de la caja sin deformarse ni estirarse */
+    margin-bottom: 15px;
 }
 
 .tarjeta-producto h3 {
@@ -214,6 +217,137 @@ nav.activo {
 .site-footer a:hover { color: var(--color-3); }
 .separador { color: var(--color-1); }
 .footer-copy { color: #FFFFFF; font-size: 0.8rem; margin-top: 20px; }
+
+/* =========================================
+   DISEÑO DEL CARRITO DE COMPRA
+   ========================================= */
+#seccion-carrito {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contenedor-carrito {
+    display: grid;
+    grid-template-columns: 1fr; /* Móvil: 1 columna, arriba producto, abajo resumen */
+    gap: 40px;
+}
+
+/* Estilos de la fila del producto */
+.item-carrito {
+    display: flex;
+    flex-direction: column; /* Móvil: elementos apilados */
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid #EEEEEE;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.item-carrito img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.info-item h3 {
+    color: var(--color-4);
+    margin-bottom: 5px;
+}
+
+.precio-unitario {
+    font-weight: bold;
+    color: var(--color-5);
+    margin-bottom: 15px;
+}
+
+/* Botones de + y - */
+.controles-cantidad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.btn-cantidad {
+    background-color: var(--color-2);
+    border: none;
+    color: var(--color-4);
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transicion);
+}
+
+.btn-cantidad:hover {
+    background-color: var(--color-4);
+    color: #FFFFFF;
+}
+
+.input-cantidad {
+    width: 50px;
+    height: 35px;
+    text-align: center;
+    font-size: 1.1rem;
+    border: 1px solid #EEEEEE;
+    margin: 0 10px;
+    font-weight: bold;
+    color: var(--color-5);
+}
+
+/* Botón de la papelera */
+.btn-eliminar {
+    background: none;
+    border: none;
+    color: #cc0000;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Caja gris del resumen lateral */
+.resumen-pedido {
+    background-color: #FAFAFA;
+    border: 1px solid #EEEEEE;
+    padding: 30px;
+    border-radius: 10px;
+    height: fit-content; /* Se adapta a su contenido */
+}
+
+.resumen-pedido h2 {
+    color: var(--color-4);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--color-2);
+    padding-bottom: 10px;
+}
+
+.btn-comprar-final {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-3);
+    color: #FFFFFF;
+    padding: 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    transition: var(--transicion);
+    margin-top: 20px;
+}
+
+.btn-comprar-final:hover {
+    background-color: var(--color-4);
+}
+
+
 
 /* =========================================
    MEDIA QUERIES (Escritorio / PC)
@@ -295,11 +429,28 @@ nav.activo {
         box-shadow: none; /* Quita la sombra */
         padding: 0;
     }
-}
-/*#titulo-opiniones{
-    border: #723D46 solid 5px;
-} */
-.titulo-seccion{
 
-    border: #723D46 solid 5px;
+    /* Diseño a 2 columnas para el Carrito en PC */
+    .contenedor-carrito {
+        grid-template-columns: 2fr 1fr; /* Izquierda más grande, derecha más pequeña */
+        align-items: start;
+    }
+
+    /* El producto se pone en horizontal en PC */
+    .item-carrito {
+        flex-direction: row;
+        text-align: left;
+        justify-content: space-between;
+    }
+
+    .item-carrito img {
+        margin-bottom: 0;
+        margin-right: 20px;
+    }
 }
+
+/* para poner bodes al titulo de las opniones
+.titulo-seccion{
+    border: #723D46 solid 5px;
+}*/
+

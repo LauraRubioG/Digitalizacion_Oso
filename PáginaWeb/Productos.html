@@ -14,7 +14,7 @@
     <nav id="menu-principal">
         <a href="Index.html">Página Principal</a>
         <a href="Productos.html">Productos</a>
-        <a href="mailto:hola@nostalgiacharms.com">Contacto</a>
+        <a href="Carrito.html">Carrito</a>
     </nav>
 </header>
 
@@ -25,7 +25,7 @@
         <div class="grid-productos">
 
             <article class="tarjeta-producto">
-                <img src="OsitoSinFondo.png" alt="Oso Oro 24k">
+                <img src="images/OsitoSinFondo.png" alt="Oso Oro 24k">
                 <h3>Bear Oro 24k</h3>
                 <div class="caja-precio">
                     <div class="linea-precio"><span>Fabricación:</span> <span>25.00 €</span></div>
@@ -34,11 +34,11 @@
                     <div class="linea-precio"><span>IVA (21%):</span> <span>8.40 €</span></div>
                     <div class="precio-final">48.40 €</div>
                 </div>
-                <a href="#" class="btn-comprar">Añadir al carrito</a>
+                <a href="Carrito.html" class="btn-comprar">Añadir al carrito</a>
             </article>
 
             <article class="tarjeta-producto">
-                <img src="OsitoSinFondo.png" alt="Oso Plata">
+                <img src="images/ArdillaSinFondo.png" alt="Oso Plata">
                 <h3>Bear Plata de Ley</h3>
                 <div class="caja-precio">
                     <div class="linea-precio"><span>Fabricación:</span> <span>20.00 €</span></div>
@@ -47,11 +47,11 @@
                     <div class="linea-precio"><span>IVA (21%):</span> <span>6.30 €</span></div>
                     <div class="precio-final">36.30 €</div>
                 </div>
-                <a href="#" class="btn-comprar">Añadir al carrito</a>
+                <a href="Carrito.html" class="btn-comprar">Añadir al carrito</a>
             </article>
 
             <article class="tarjeta-producto">
-                <img src="OsitoSinFondo.png" alt="Oso Oro Rosa">
+                <img src="images/OsoGafasSinFondo.png" alt="Oso Oro Rosa">
                 <h3>Bear Oro Rosa</h3>
                 <div class="caja-precio">
                     <div class="linea-precio"><span>Fabricación:</span> <span>22.00 €</span></div>
@@ -60,7 +60,7 @@
                     <div class="linea-precio"><span>IVA (21%):</span> <span>7.35 €</span></div>
                     <div class="precio-final">42.35 €</div>
                 </div>
-                <a href="#" class="btn-comprar">Añadir al carrito</a>
+                <a href="Carrito.html" class="btn-comprar">Añadir al carrito</a>
             </article>
 
         </div>
@@ -98,4 +98,17 @@
 </footer>
 
 </body>
+
+<script>
+    // Seleccionamos el botón y el menú usando sus IDs
+    const btnHamburguesa = document.getElementById('btn-hamburguesa');
+    const menuPrincipal = document.getElementById('menu-principal');
+
+    // Escuchamos el evento 'click' en el botón
+    btnHamburguesa.addEventListener('click', () => {
+        // Alternamos la clase 'activo' (si la tiene se la quita, si no, se la pone)
+        menuPrincipal.classList.toggle('activo');
+    });
+</script>
+
 </html>
