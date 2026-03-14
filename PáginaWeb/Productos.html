@@ -1,19 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos | Inicio</title>
+    <title>Nostalgia Charms | Nuestros Productos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-    <nav>
-        <a href="Index.html">Página Principal</a>
-        <a href="AboutUs.html">About Us</a>
-        <a href="Productos.html">Productos</a>
+
+<header style="position: relative;">
+    <div class="menu-hamburguesa" id="btn-hamburguesa">☰ Menú</div>
+
+    <nav id="menu-principal">
+        <a href="index.html">Página Principal</a>
+        <a href="productos.html">Productos</a>
+        <a href="mailto:hola@nostalgiacharms.com">Contacto</a>
     </nav>
 </header>
+
+<main>
+    <section id="tienda">
+        <h1 class="titulo-seccion">Colección Nostalgia Bear</h1>
+
+        <div class="grid-productos">
+
+            <article class="tarjeta-producto">
+                <img src="OsitoSinFondo.png" alt="Oso Oro 24k">
+                <h3>Bear Oro 24k</h3>
+                <div class="caja-precio">
+                    <div class="linea-precio"><span>Fabricación:</span> <span>25.00 €</span></div>
+                    <div class="linea-precio"><span>Margen / I+D:</span> <span>15.00 €</span></div>
+                    <div class="linea-precio"><span>Base Imponible:</span> <span>40.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span>8.40 €</span></div>
+                    <div class="precio-final">48.40 €</div>
+                </div>
+                <a href="#" class="btn-comprar">Añadir al carrito</a>
+            </article>
+
+            <article class="tarjeta-producto">
+                <img src="OsitoSinFondo.png" alt="Oso Plata">
+                <h3>Bear Plata de Ley</h3>
+                <div class="caja-precio">
+                    <div class="linea-precio"><span>Fabricación:</span> <span>20.00 €</span></div>
+                    <div class="linea-precio"><span>Margen / I+D:</span> <span>10.00 €</span></div>
+                    <div class="linea-precio"><span>Base Imponible:</span> <span>30.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span>6.30 €</span></div>
+                    <div class="precio-final">36.30 €</div>
+                </div>
+                <a href="#" class="btn-comprar">Añadir al carrito</a>
+            </article>
+
+            <article class="tarjeta-producto">
+                <img src="OsitoSinFondo.png" alt="Oso Oro Rosa">
+                <h3>Bear Oro Rosa</h3>
+                <div class="caja-precio">
+                    <div class="linea-precio"><span>Fabricación:</span> <span>22.00 €</span></div>
+                    <div class="linea-precio"><span>Margen / I+D:</span> <span>13.00 €</span></div>
+                    <div class="linea-precio"><span>Base Imponible:</span> <span>35.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span>7.35 €</span></div>
+                    <div class="precio-final">42.35 €</div>
+                </div>
+                <a href="#" class="btn-comprar">Añadir al carrito</a>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="info-generica">
+        <article class="caja-info">
+            <h2>Experiencia Inmersiva (AR)</h2>
+            <p>Nuestras joyas no son solo accesorios. Todas incluyen en su packaging un marcador de alto contraste. Abre nuestra aplicación móvil (creada con Unity y AR Foundation), apunta a la etiqueta y el oso cobrará vida en 3D en la palma de tu mano.</p>
+        </article>
+
+        <article class="caja-info">
+            <h2>Especificaciones Generales</h2>
+            <ul>
+                <li><strong>Materiales:</strong> Aleaciones hipoalergénicas y baños de metales nobles.</li>
+                <li><strong>Diseño:</strong> Algodón orgánico texturizado en el cordón.</li>
+                <li><strong>Tecnología App:</strong> Compatible con iOS (ARKit) y Android (ARCore).</li>
+            </ul>
+        </article>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-legales">
+        <a href="#">Política de Privacidad y Cookies</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="mailto:hola@nostalgiacharms.com">Soporte</a>
+    </div>
+    <div class="footer-social">
+        <a href="#">Instagram</a> <span class="separador">|</span>
+        <a href="#">TikTok</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Nostalgia Charms. Proyecto DAW.</p>
+</footer>
 
 </body>
 </html>
