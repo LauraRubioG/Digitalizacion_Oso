@@ -34,7 +34,7 @@
                     <div class="linea-precio"><span>IVA (21%):</span> <span>8.40 €</span></div>
                     <div class="precio-final">48.40 €</div>
                 </div>
-                <a href="Carrito.html" class="btn-comprar">Añadir al carrito</a>
+                <button class="btn-comprar" onclick="agregarAlCarrito('oso-oro', 'Bear Oro 24k', 40.00, 'images/OsitoSinFondo.png')">Añadir al carrito</button>
             </article>
 
             <article class="tarjeta-producto">
@@ -47,7 +47,7 @@
                     <div class="linea-precio"><span>IVA (21%):</span> <span>6.30 €</span></div>
                     <div class="precio-final">36.30 €</div>
                 </div>
-                <a href="Carrito.html" class="btn-comprar">Añadir al carrito</a>
+                <button class="btn-comprar" onclick="agregarAlCarrito('oso-plata', 'Bear Plata de Ley', 30.00, 'images/OsoColganteGafas.png')">Añadir al carrito</button>
             </article>
 
             <article class="tarjeta-producto">
@@ -60,7 +60,7 @@
                     <div class="linea-precio"><span>IVA (21%):</span> <span>7.35 €</span></div>
                     <div class="precio-final">42.35 €</div>
                 </div>
-                <a href="Carrito.html" class="btn-comprar">Añadir al carrito</a>
+                <button class="btn-comprar" onclick="agregarAlCarrito('oso-rosa', 'Bear Oro Rosa', 35.00, 'images/ArdillaColgante.png')">Añadir al carrito</button>
             </article>
 
         </div>
@@ -98,6 +98,31 @@
 </footer>
 
 </body>
+
+<script>
+    function agregarAlCarrito(id, nombre, precioBase, imagen) {
+        // 1. Leemos el carrito actual de la memoria (o creamos uno vacío si no hay)
+        let carrito = JSON.parse(localStorage.getItem('carritoNostalgia')) || [];
+
+        // 2. Comprobamos si el producto ya estaba en el carrito
+        let productoExistente = carrito.find(item => item.id === id);
+
+        if (productoExistente) {
+            // Si ya está, le sumamos 1 a la cantidad
+            productoExistente.cantidad += 1;
+        } else {
+            // Si no está, lo metemos como nuevo con cantidad 1
+            carrito.push({ id: id, nombre: nombre, precioBase: precioBase, imagen: imagen, cantidad: 1 });
+        }
+
+        // 3. Guardamos el carrito actualizado en la memoria
+        localStorage.setItem('carritoNostalgia', JSON.stringify(carrito));
+
+        // 4. Redirigimos automáticamente a la página del carrito
+        window.location.href = 'carrito.html';
+    }
+</script>
+
 
 <script>
     // Seleccionamos el botón y el menú usando sus IDs

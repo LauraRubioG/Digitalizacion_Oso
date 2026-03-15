@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nostalgia Charms | Carrito de Compra</title>
+    <title>Nostalgia Charms | Tu Carrito</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <nav id="menu-principal">
         <a href="Index.html">Página Principal</a>
         <a href="Productos.html">Productos</a>
-        <a href="Carrito.html">Carrito de compra</a>
+        <a href="Carrito.html">🛒 Carrito</a>
     </nav>
 </header>
 
@@ -21,36 +21,26 @@
     <section id="seccion-carrito">
         <h1 class="titulo-seccion">Tu Carrito de Compra</h1>
 
-        <div class="contenedor-carrito">
+        <div id="mensaje-vacio" style="display: none; text-align: center; padding: 40px;">
+            <p>Tu carrito está vacío.</p>
+            <br>
+            <a href="productos.html" class="btn-cta">Ir a la tienda</a>
+        </div>
 
-            <div class="lista-productos" id="lista-carrito">
+        <div class="contenedor-carrito" id="contenido-carrito">
 
-                <article class="item-carrito" id="item-1">
-                    <img src="OsitoSinFondo.png" alt="Oso Oro 24k">
-                    <div class="info-item">
-                        <h3>Bear Oro 24k</h3>
-                        <p class="precio-unitario" data-precio="48.40">Precio: 48.40 €</p>
-
-                        <div class="controles-cantidad">
-                            <button class="btn-cantidad restar">-</button>
-                            <input type="number" class="input-cantidad" value="1" min="1" readonly>
-                            <button class="btn-cantidad sumar">+</button>
-                        </div>
-                    </div>
-                    <button class="btn-eliminar" title="Eliminar producto">🗑️ Eliminar</button>
-                </article>
-
-            </div>
+            <div class="lista-productos" id="contenedor-items"></div>
 
             <aside class="resumen-pedido">
                 <h2>Resumen del Pedido</h2>
                 <div class="caja-precio">
-                    <div class="linea-precio"><span>Subtotal (Base Imponible):</span> <span id="resumen-base">40.00 €</span></div>
-                    <div class="linea-precio"><span>IVA (21%):</span> <span id="resumen-iva">8.40 €</span></div>
+                    <div class="linea-precio"><span>Subtotal (Base):</span> <span id="resumen-base">0.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span id="resumen-iva">0.00 €</span></div>
                     <div class="linea-precio"><span>Envío:</span> <span>Gratis</span></div>
-                    <div class="precio-final" id="resumen-total">48.40 €</div>
+                    <div class="precio-final" id="resumen-total">0.00 €</div>
                 </div>
-                <a href="#" class="btn-comprar-final" onclick="alert('¡Gracias por comprar en Nostalgia Charms!')">Tramitar Pedido</a>
+                <button id="btn-terminar" class="btn-comprar-final">Terminar Compra</button>
+                <a href="productos.html" style="display: block; text-align: center; margin-top: 15px; color: var(--color-4);">← Seguir comprando</a>
             </aside>
 
         </div>
@@ -62,69 +52,97 @@
 </footer>
 
 <script>
-    // --- 1. SCRIPT DEL MENÚ HAMBURGUESA ---
-    const btnHamburguesa = document.getElementById('btn-hamburguesa');
-    const menuPrincipal = document.getElementById('menu-principal');
-    btnHamburguesa.addEventListener('click', () => {
-        menuPrincipal.classList.toggle('activo');
+    // Menú hamburguesa
+    document.getElementById('btn-hamburguesa').addEventListener('click', () => {
+        document.getElementById('menu-principal').classList.toggle('activo');
     });
 
-    // --- 2. SCRIPT DE LA LÓGICA DEL CARRITO ---
-    // Obtenemos los elementos del DOM que vamos a modificar
-    const btnSumar = document.querySelector('.sumar');
-    const btnRestar = document.querySelector('.restar');
-    const inputCantidad = document.querySelector('.input-cantidad');
-    const btnEliminar = document.querySelector('.btn-eliminar');
-    const itemCarrito = document.getElementById('item-1');
+    // Lógica del Carrito
+    let carrito = JSON.parse(localStorage.getItem('carritoNostalgia')) || [];
+    const contenedorItems = document.getElementById('contenedor-items');
+    const mensajeVacio = document.getElementById('mensaje-vacio');
+    const contenidoCarrito = document.getElementById('contenido-carrito');
 
-    // Elementos del resumen de precios
-    const txtBase = document.getElementById('resumen-base');
-    const txtIva = document.getElementById('resumen-iva');
-    const txtTotal = document.getElementById('resumen-total');
+    function renderizarCarrito() {
+        contenedorItems.innerHTML = ''; // Limpiamos la caja
 
-    // Precio base sin IVA de 1 unidad (según tu ejercicio anterior)
-    const precioBaseUnidad = 40.00;
+        if (carrito.length === 0) {
+            // Si está vacío, ocultamos la zona de pago y mostramos el mensaje
+            contenidoCarrito.style.display = 'none';
+            mensajeVacio.style.display = 'block';
+            return;
+        }
 
-    // Función que recalcula todo según la cantidad actual
-    function actualizarPrecios() {
-        let cantidad = parseInt(inputCantidad.value); // Leemos el número del input
+        // Si hay productos, los mostramos
+        contenidoCarrito.style.display = 'grid';
+        mensajeVacio.style.display = 'none';
 
-        // Cálculos matemáticos (Tema 14)
-        let totalBase = precioBaseUnidad * cantidad;
+        let totalBase = 0;
+
+        // Recorremos cada producto guardado en la memoria
+        carrito.forEach((producto, index) => {
+            totalBase += (producto.precioBase * producto.cantidad);
+
+            // Creamos el HTML dinámico para cada producto
+            const articulo = document.createElement('article');
+            articulo.className = 'item-carrito';
+            articulo.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}">
+                    <div class="info-item">
+                        <h3>${producto.nombre}</h3>
+                        <p class="precio-unitario">Base: ${producto.precioBase.toFixed(2)} €</p>
+
+                        <div class="controles-cantidad">
+                            <button class="btn-cantidad" onclick="cambiarCantidad(${index}, -1)">-</button>
+                            <input type="number" class="input-cantidad" value="${producto.cantidad}" readonly>
+                            <button class="btn-cantidad" onclick="cambiarCantidad(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="btn-eliminar" onclick="eliminarProducto(${index})">🗑️ Eliminar</button>
+                `;
+            contenedorItems.appendChild(articulo);
+        });
+
+        // Cálculos del Tema 14 (Base + IVA)
         let totalIva = totalBase * 0.21;
         let totalFinal = totalBase + totalIva;
 
-        // Actualizamos el HTML formateando a 2 decimales (.toFixed(2))
-        txtBase.innerText = totalBase.toFixed(2) + " €";
-        txtIva.innerText = totalIva.toFixed(2) + " €";
-        txtTotal.innerText = totalFinal.toFixed(2) + " €";
+        // Actualizamos los textos
+        document.getElementById('resumen-base').innerText = totalBase.toFixed(2) + " €";
+        document.getElementById('resumen-iva').innerText = totalIva.toFixed(2) + " €";
+        document.getElementById('resumen-total').innerText = totalFinal.toFixed(2) + " €";
     }
 
-    // Evento al pulsar el botón de SUMAR (+)
-    btnSumar.addEventListener('click', () => {
-        let cantidadActual = parseInt(inputCantidad.value);
-        inputCantidad.value = cantidadActual + 1; // Sumamos 1
-        actualizarPrecios(); // Recalculamos
-    });
-
-    // Evento al pulsar el botón de RESTAR (-)
-    btnRestar.addEventListener('click', () => {
-        let cantidadActual = parseInt(inputCantidad.value);
-        if (cantidadActual > 1) { // Evitamos que baje de 1
-            inputCantidad.value = cantidadActual - 1; // Restamos 1
-            actualizarPrecios(); // Recalculamos
+    // Función para subir o bajar la cantidad
+    function cambiarCantidad(indice, cambio) {
+        if (carrito[indice].cantidad + cambio > 0) {
+            carrito[indice].cantidad += cambio;
+        } else {
+            carrito.splice(indice, 1); // Si baja de 1, lo borra
         }
+        localStorage.setItem('carritoNostalgia', JSON.stringify(carrito));
+        renderizarCarrito(); // Repintamos la pantalla
+    }
+
+    // Función para eliminar entero un producto
+    function eliminarProducto(indice) {
+        carrito.splice(indice, 1);
+        localStorage.setItem('carritoNostalgia', JSON.stringify(carrito));
+        renderizarCarrito();
+    }
+
+    // Función del botón TERMINAR COMPRA (Pantallita de gracias)
+    document.getElementById('btn-terminar').addEventListener('click', () => {
+        alert("¡Muchas gracias por tu compra en Nostalgia Charms!\n\nTu pedido de Realidad Aumentada está en proceso.");
+        // Vaciamos el carrito de la memoria
+        localStorage.removeItem('carritoNostalgia');
+        carrito = [];
+        // Recargamos para que salga la pantalla de vacío
+        renderizarCarrito();
     });
 
-    // Evento al pulsar ELIMINAR
-    btnEliminar.addEventListener('click', () => {
-        // Borramos visualmente el producto
-        itemCarrito.style.display = 'none';
-        // Ponemos los precios a cero
-        txtBase.innerText = "0.00 €";
-        txtIva.innerText = "0.00 €";
-        txtTotal.innerText = "0.00 €";
-    });
+    // Pintamos el carrito nada más cargar la página
+    renderizarCarrito();
 </script>
 </body>
 </html>
