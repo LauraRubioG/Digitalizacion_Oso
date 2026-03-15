@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nostalgia Charms | Inicio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header style="position: relative;">
+    <div class="menu-hamburguesa" id="btn-hamburguesa">☰ Menú</div>
+
+    <nav id="menu-principal">
+        <a href="index.html">Página Principal</a>
+        <a href="productos.html">Productos</a>
+        <a href="carrito.html">Carrito</a>
+    </nav>
+</header>
+
+<main>
+    <section id="hero">
+        <div>
+            <h1>Vuelve a la infancia, con elegancia.</h1>
+            <p>Descubre nuestra nueva colección de joyas inmersivas en Realidad Aumentada. Escanéalas y descubre la magia antes de comprar.</p>
+            <a href="productos.html" class="btn-cta">Ver Colección Completa</a>
+        </div>
+        <img src="images/OsitoSinFondo.png" alt="Colgante Nostalgia Bear bañado en oro">
+    </section>
+
+    <section id="opiniones">
+        <section id="titulo-opiniones">
+            <h2 class="titulo-seccion">Lo que dicen nuestros clientes</h2>
+        </section>
+
+        <div class="grid-opiniones">
+            <article class="tarjeta-opinion">
+                <div class="estrellas">⭐⭐⭐⭐⭐</div>
+                <p>"La experiencia con la App de Realidad Aumentada es brutal. Pude ver el osito bañado en oro encima de mi mesa antes de decidirme a comprarlo."</p>
+                <p class="autor">- María López</p>
+            </article>
+
+            <article class="tarjeta-opinion">
+                <div class="estrellas">⭐⭐⭐⭐⭐</div>
+                <p>"Diseño minimalista y súper elegante. El envío fue rápido y la sorpresa de la etiqueta interactiva le encantó a mi pareja."</p>
+                <p class="autor">- Carlos Ruiz</p>
+            </article>
+
+            <article class="tarjeta-opinion">
+                <div class="estrellas">⭐⭐⭐⭐⭐</div>
+                <p>"Una joya que mezcla la nostalgia de la infancia con la última tecnología. Muy recomendable, la calidad del algodón orgánico se nota."</p>
+                <p class="autor">- Elena G.</p>
+            </article>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-legales">
+        <a href="#">Política de Privacidad y Cookies</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="mailto:hola@nostalgiacharms.com">Soporte</a>
+    </div>
+    <div class="footer-social">
+        <a href="#">Instagram</a> <span class="separador">|</span>
+        <a href="#">TikTok</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Nostalgia Charms. Proyecto DAW.</p>
+</footer>
+
+</body>
+// java script para el boton de hamburguesa
+<script>
+    // Seleccionamos el botón y el menú usando sus IDs
+    const btnHamburguesa = document.getElementById('btn-hamburguesa');
+    const menuPrincipal = document.getElementById('menu-principal');
+
+    // Escuchamos el evento 'click' en el botón
+    btnHamburguesa.addEventListener('click', () => {
+        // Alternamos la clase 'activo' (si la tiene se la quita, si no, se la pone)
+        menuPrincipal.classList.toggle('activo');
+    });
+</script>
+</html>

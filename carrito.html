@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nostalgia Charms | Tu Carrito</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header style="position: relative;">
+    <div class="menu-hamburguesa" id="btn-hamburguesa">☰ Menú</div>
+    <nav id="menu-principal">
+        <a href="index.html">Página Principal</a>
+        <a href="productos.html">Productos</a>
+        <a href="carrito.html">🛒 Carrito</a>
+    </nav>
+</header>
+
+<main>
+    <section id="seccion-carrito">
+        <h1 class="titulo-seccion">Tu Carrito de Compra</h1>
+
+        <div id="mensaje-vacio" style="display: none; text-align: center; padding: 40px;">
+            <p>Tu carrito está vacío.</p>
+            <br>
+            <a href="productos.html" class="btn-cta">Ir a la tienda</a>
+        </div>
+
+        <div class="contenedor-carrito" id="contenido-carrito">
+
+            <div class="lista-productos" id="contenedor-items"></div>
+
+            <aside class="resumen-pedido">
+                <h2>Resumen del Pedido</h2>
+                <div class="caja-precio">
+                    <div class="linea-precio"><span>Subtotal (Base):</span> <span id="resumen-base">0.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span id="resumen-iva">0.00 €</span></div>
+                    <div class="linea-precio"><span>Envío:</span> <span>Gratis</span></div>
+                    <div class="precio-final" id="resumen-total">0.00 €</div>
+                </div>
+                <button id="btn-terminar" class="btn-comprar-final">Terminar Compra</button>
+                <a href="productos.html" style="display: block; text-align: center; margin-top: 15px; color: var(--color-4);">← Seguir comprando</a>
+            </aside>
+
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p class="footer-copy">&copy; 2026 Nostalgia Charms. Proyecto DAW.</p>
+</footer>
+
+<script>
+    // Menú hamburguesa
+    document.getElementById('btn-hamburguesa').addEventListener('click', () => {
+        document.getElementById('menu-principal').classList.toggle('activo');
+    });
+
+    // Lógica del Carrito
+    let carrito = JSON.parse(localStorage.getItem('carritoNostalgia')) || [];
+    const contenedorItems = document.getElementById('contenedor-items');
+    const mensajeVacio = document.getElementById('mensaje-vacio');
+    const contenidoCarrito = document.getElementById('contenido-carrito');
+
+    function renderizarCarrito() {
+        contenedorItems.innerHTML = ''; // Limpiamos la caja
+
+        if (carrito.length === 0) {
+            // Si está vacío, ocultamos la zona de pago y mostramos el mensaje
+            contenidoCarrito.style.display = 'none';
+            mensajeVacio.style.display = 'block';
+            return;
+        }
+
+        // Si hay productos, los mostramos
+        contenidoCarrito.style.display = 'grid';
+        mensajeVacio.style.display = 'none';
+
+        let totalBase = 0;
+
+        // Recorremos cada producto guardado en la memoria
+        carrito.forEach((producto, index) => {
+            totalBase += (producto.precioBase * producto.cantidad);
+
+            // Creamos el HTML dinámico para cada producto
+            const articulo = document.createElement('article');
+            articulo.className = 'item-carrito';
+            articulo.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}">
+                    <div class="info-item">
+                        <h3>${producto.nombre}</h3>
+                        <p class="precio-unitario">Base: ${producto.precioBase.toFixed(2)} €</p>
+
+                        <div class="controles-cantidad">
+                            <button class="btn-cantidad" onclick="cambiarCantidad(${index}, -1)">-</button>
+                            <input type="number" class="input-cantidad" value="${producto.cantidad}" readonly>
+                            <button class="btn-cantidad" onclick="cambiarCantidad(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="btn-eliminar" onclick="eliminarProducto(${index})">🗑️ Eliminar</button>
+                `;
+            contenedorItems.appendChild(articulo);
+        });
+
+        // Cálculos del Tema 14 (Base + IVA)
+        let totalIva = totalBase * 0.21;
+        let totalFinal = totalBase + totalIva;
+
+        // Actualizamos los textos
+        document.getElementById('resumen-base').innerText = totalBase.toFixed(2) + " €";
+        document.getElementById('resumen-iva').innerText = totalIva.toFixed(2) + " €";
+        document.getElementById('resumen-total').innerText = totalFinal.toFixed(2) + " €";
+    }
+
+    // Función para subir o bajar la cantidad
+    function cambiarCantidad(indice, cambio) {
+        if (carrito[indice].cantidad + cambio > 0) {
+            carrito[indice].cantidad += cambio;
+        } else {
+            carrito.splice(indice, 1); // Si baja de 1, lo borra
+        }
+        localStorage.setItem('carritoNostalgia', JSON.stringify(carrito));
+        renderizarCarrito(); // Repintamos la pantalla
+    }
+
+    // Función para eliminar entero un producto
+    function eliminarProducto(indice) {
+        carrito.splice(indice, 1);
+        localStorage.setItem('carritoNostalgia', JSON.stringify(carrito));
+        renderizarCarrito();
+    }
+
+    // Función del botón TERMINAR COMPRA (Pantallita de gracias)
+    document.getElementById('btn-terminar').addEventListener('click', () => {
+        alert("¡Muchas gracias por tu compra en Nostalgia Charms!\n\nTu pedido de Realidad Aumentada está en proceso.");
+        // Vaciamos el carrito de la memoria
+        localStorage.removeItem('carritoNostalgia');
+        carrito = [];
+        // Recargamos para que salga la pantalla de vacío
+        renderizarCarrito();
+    });
+
+    // Pintamos el carrito nada más cargar la página
+    renderizarCarrito();
+</script>
+</body>
+</html>

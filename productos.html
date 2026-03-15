@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nostalgia Charms | Nuestros Productos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header style="position: relative;">
+    <div class="menu-hamburguesa" id="btn-hamburguesa">☰ Menú</div>
+
+    <nav id="menu-principal">
+        <a href="index.html">Página Principal</a>
+        <a href="productos.html">Productos</a>
+        <a href="carrito.html">Carrito</a>
+    </nav>
+</header>
+
+<main>
+    <section id="tienda">
+        <h1 class="titulo-seccion">Colección Nostalgia Bear</h1>
+
+        <div class="grid-productos">
+
+            <article class="tarjeta-producto">
+                <img src="images/OsitoSinFondo.png" alt="Oso Oro 24k">
+                <h3>Osito de Oro</h3>
+                <div class="caja-precio">
+                    <div class="linea-precio"><span>Fabricación:</span> <span>25.00 €</span></div>
+                    <div class="linea-precio"><span>Margen / I+D:</span> <span>15.00 €</span></div>
+                    <div class="linea-precio"><span>Base Imponible:</span> <span>40.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span>8.40 €</span></div>
+                    <div class="precio-final">48.40 €</div>
+                </div>
+                <button class="btn-comprar" onclick="agregarAlCarrito('oso-oro', 'Bear Oro 24k', 40.00, 'images/OsitoSinFondo.png')">Añadir al carrito</button>
+            </article>
+
+            <article class="tarjeta-producto">
+                <img src="images/ArdillaSinFondo.png" alt="Oso Plata">
+                <h3>Bear Plata de Ley</h3>
+                <div class="caja-precio">
+                    <div class="linea-precio"><span>Fabricación:</span> <span>20.00 €</span></div>
+                    <div class="linea-precio"><span>Margen / I+D:</span> <span>10.00 €</span></div>
+                    <div class="linea-precio"><span>Base Imponible:</span> <span>30.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span>6.30 €</span></div>
+                    <div class="precio-final">36.30 €</div>
+                </div>
+                <button class="btn-comprar" onclick="agregarAlCarrito('oso-plata', 'Bear Plata de Ley', 30.00, 'images/OsoColganteGafas.png')">Añadir al carrito</button>
+            </article>
+
+            <article class="tarjeta-producto">
+                <img src="images/OsoGafasSinFondo.png" alt="Oso Oro Rosa">
+                <h3>Bear Oro Rosa</h3>
+                <div class="caja-precio">
+                    <div class="linea-precio"><span>Fabricación:</span> <span>22.00 €</span></div>
+                    <div class="linea-precio"><span>Margen / I+D:</span> <span>13.00 €</span></div>
+                    <div class="linea-precio"><span>Base Imponible:</span> <span>35.00 €</span></div>
+                    <div class="linea-precio"><span>IVA (21%):</span> <span>7.35 €</span></div>
+                    <div class="precio-final">42.35 €</div>
+                </div>
+                <button class="btn-comprar" onclick="agregarAlCarrito('oso-rosa', 'Bear Oro Rosa', 35.00, 'images/ArdillaColgante.png')">Añadir al carrito</button>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="info-generica">
+        <article class="caja-info">
+            <h2>Experiencia Inmersiva (AR)</h2>
+            <p>Nuestras joyas no son solo accesorios. Todas incluyen en su packaging un marcador de alto contraste. Abre nuestra aplicación móvil (creada con Unity y AR Foundation), apunta a la etiqueta y el oso cobrará vida en 3D en la palma de tu mano.</p>
+        </article>
+
+        <article class="caja-info">
+            <h2>Especificaciones Generales</h2>
+            <ul>
+                <li><strong>Materiales:</strong> Aleaciones hipoalergénicas y baños de metales nobles.</li>
+                <li><strong>Diseño:</strong> Algodón orgánico texturizado en el cordón.</li>
+                <li><strong>Tecnología App:</strong> Compatible con iOS (ARKit) y Android (ARCore).</li>
+            </ul>
+        </article>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-legales">
+        <a href="#">Política de Privacidad y Cookies</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="mailto:hola@nostalgiacharms.com">Soporte</a>
+    </div>
+    <div class="footer-social">
+        <a href="#">Instagram</a> <span class="separador">|</span>
+        <a href="#">TikTok</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Nostalgia Charms. Proyecto DAW.</p>
+</footer>
+
+</body>
+
+<script>
+    function agregarAlCarrito(id, nombre, precioBase, imagen) {
+        // 1. Leemos el carrito actual de la memoria (o creamos uno vacío si no hay)
+        let carrito = JSON.parse(localStorage.getItem('carritoNostalgia')) || [];
+
+        // 2. Comprobamos si el producto ya estaba en el carrito
+        let productoExistente = carrito.find(item => item.id === id);
+
+        if (productoExistente) {
+            // Si ya está, le sumamos 1 a la cantidad
+            productoExistente.cantidad += 1;
+        } else {
+            // Si no está, lo metemos como nuevo con cantidad 1
+            carrito.push({ id: id, nombre: nombre, precioBase: precioBase, imagen: imagen, cantidad: 1 });
+        }
+
+        // 3. Guardamos el carrito actualizado en la memoria
+        localStorage.setItem('carritoNostalgia', JSON.stringify(carrito));
+
+        // 4. Redirigimos automáticamente a la página del carrito
+        window.location.href = 'carrito.html';
+    }
+</script>
+
+
+<script>
+    // Seleccionamos el botón y el menú usando sus IDs
+    const btnHamburguesa = document.getElementById('btn-hamburguesa');
+    const menuPrincipal = document.getElementById('menu-principal');
+
+    // Escuchamos el evento 'click' en el botón
+    btnHamburguesa.addEventListener('click', () => {
+        // Alternamos la clase 'activo' (si la tiene se la quita, si no, se la pone)
+        menuPrincipal.classList.toggle('activo');
+    });
+</script>
+
+</html>
